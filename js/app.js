@@ -18,12 +18,15 @@ var previousLeftImageIndex;
 var previousMiddelImageIndex;
 var previousrightImageIndex;
 
+var productName=[];
+
 function Mall (name , url){
     this.name=name;
     this.url=url;
     this.timesShown=0;
     this.numberOfClicks=0;
     product.push(this);
+    productName.push(this.name);
 
 
 }
@@ -127,8 +130,8 @@ displayRandomIamge();
 tabel.addEventListener('click', NumberClicks)
 
 function NumberClicks(event){
-  if( totalClick<25){
-        //var clickedElement = event.target;
+  if( totalClick<5){
+       
         var clickedElementId = event.target.id;
 
       if (clickedElementId === 'leftimg' || clickedElementId === 'middelimg'  || clickedElementId === 'rightimg') {
@@ -151,20 +154,92 @@ function NumberClicks(event){
     }
     else{
 
-        var resultsList = document.getElementById('resultbox');
 
-        for (var i = 0; i < product.length; i++) {
-            var listItem = document.createElement('li');
-            listItem.textContent = product[i].name + ' has ' + product[i].numberOfClicks + ' clicks , and ' + product[i].timesShown + ' times shown';
-            resultsList.appendChild(listItem);
-          }
+          resultChart();
 
-          final.removeEventListener('click',NumberClicks)
-
-
+          final.removeEventListener('click',NumberClicks);
+          
     }
-
 }
 
+
+
+
+
+
+function resultChart (){
+
+  var color=[];
+  var color2=[];
+  var numberOfCliksArray=[];
+  var border=[];
+  var numberTimeshown =[];
+  for(var i=0; i<product.length; i++){
+    numberOfCliksArray.push(product[i].numberOfClicks);
+    numberTimeshown.push(product[i].timesShown);
+    border.push('rgba(12, 12, 12,1)')
+      color.push('rgb(180, 76, 76)');
+      color2.push('rgb(85, 26, 26)')           
+  }
+
+
+var ctx = document.getElementById('resultsChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productName,
+        datasets: [{
+            label:'# of clicks',
+            data:numberOfCliksArray, 
+            backgroundColor: color,                
+            borderColor: border,
+            borderWidth: 1 ,
+            
+        },{
+        label:'# of time showen',
+        data:numberTimeshown, 
+        backgroundColor: color2,                
+        borderColor: border,
+        borderWidth: 1 ,},
+      ]
+    },
+
+    options: {
+     responsive: false,
+      maintainAspectRatio: false,
+
+
+
+      legend: {
+        labels: {
+            // This more specific font property overrides the global property
+            fontColor: 'black'
+        }
+    },
+
+        scales: { 
+            yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  precision:1, 
+                  stepSize:1 ,
+
+                  fontColor: 'black'
+                    
+                }
+            }],
+
+            xAxes:[{
+            ticks: {
+              fontColor: 'black'
+            }
+
+            }
+          ]  
+        }
+    }
+});
+}
 
 
