@@ -16,6 +16,8 @@ var final =document.getElementById('tabel')
 var leftImage = document.getElementById('leftimg');
 var middleImage = document.getElementById('middelimg');
 var rightImage = document.getElementById('rightimg');
+for(var i=0; i<product.length; i++){
+productName.push(product[i].name)}
 //var storage = document.getElementById('storage');
 //var jsoToJSONString = document.getElementById('jsoToJSONString');
 
@@ -41,13 +43,17 @@ function Mall (name , url){
 }
 
 
-console.log(product)
-
-if (localStorage.saveproducts){
+//console.log(product)
+if (localStorage.getItem('maxnumberofclicks')){
+  maxNumberofclicks=JSON.parse(localStorage.getItem('maxnumberofclicks'));
+}
+if (localStorage.getItem('saveproducts')){
 product=JSON.parse(localStorage.getItem('saveproducts'));
 totalClick=JSON.parse(localStorage.getItem('totalClicks'));
-maxNumberofclicks=JSON.parse(localStorage.getItem('maxnumberofclicks'));
 //productName=JSON.parse(localStorage.getItem('productname'));
+for(var i=0 ;i<product.length;i++){
+  productName.push(product[i].name)
+}
 
 console.log(product)
 
@@ -180,7 +186,7 @@ function NumberClicks(event){
     localStorage.setItem('saveproducts',JSON.stringify(product));
     console.log('The localStorage before: ', localStorage);
     console.log('After retriving ',JSON.parse(localStorage.getItem('products')));
-
+    localStorage.setItem('totalClicks',JSON.stringify(totalClick))
       displayRandomIamge();
       //update();
       //localStorage.setItem('products',JSON.stringify(product));
@@ -194,7 +200,7 @@ function NumberClicks(event){
       resultChart();
      
      //final.removeEventListener('click',NumberClicks);
-     maxnumber();
+      maxnumber();
           
     }
 }
@@ -218,10 +224,10 @@ function resultChart (){
     border.push('rgba(12, 12, 12,1)')
     color.push('rgb(180, 76, 76)');
     color2.push('rgb(85, 26, 26)');
-    if (productName===undefined){
-      productName.push(product[i].name);
+   // if (productName===undefined){
+    //  productName.push(product[i].name);
       
-    } 
+    //} 
          
   }
 console.log(productName)
@@ -288,12 +294,12 @@ function maxnumber(){
    
   maxNumberofclicks+=25;
   // var totalClicknew=totalClick;
-   localStorage.setItem('totalClicks',JSON.stringify(totalClick))
+  
    localStorage.setItem('maxnumberofclicks',JSON.stringify(maxNumberofclicks))
   // localStorage.setItem('productname',JSON.stringify(productName))
 
  //  resultChart.remove()
- delete resultChart();
+// delete resultChart();
 
 }
 
