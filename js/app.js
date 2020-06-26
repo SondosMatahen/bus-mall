@@ -3,9 +3,12 @@
 var product =[];
 var totalClick=0;
 
+
+
 var currentLeftImg;
 var currentMiddleImg;
 var currentRightImg;
+var maxNumberofclicks=25;
 
 
 var final =document.getElementById('tabel')
@@ -13,6 +16,9 @@ var final =document.getElementById('tabel')
 var leftImage = document.getElementById('leftimg');
 var middleImage = document.getElementById('middelimg');
 var rightImage = document.getElementById('rightimg');
+//var storage = document.getElementById('storage');
+//var jsoToJSONString = document.getElementById('jsoToJSONString');
+
 
 var previousLeftImageIndex;
 var previousMiddelImageIndex;
@@ -20,15 +26,36 @@ var previousrightImageIndex;
 
 var maxnumber=25;
 
+var productName=[];
+//var numberClicksArray=[];
+//var timeShowenArray=[];
+
+
+
+
 function Mall (name , url){
     this.name=name;
     this.url=url;
     this.timesShown=0;
     this.numberOfClicks=0;
     product.push(this);
-
+    productName.push(this.name);
 
 }
+
+
+console.log(product)
+
+if (localStorage.saveproducts){
+product=JSON.parse(localStorage.getItem('saveproducts'));
+totalClick=JSON.parse(localStorage.getItem('totalClicks'));
+maxNumberofclicks=JSON.parse(localStorage.getItem('maxnumberofclicks'));
+//productName=JSON.parse(localStorage.getItem('productname'));
+
+console.log(product)
+
+}
+else{
 
 new Mall ('bag','image/bag.jpg');
 new Mall('banana','image/banana.jpg');
@@ -50,6 +77,8 @@ new Mall('unicorn','image/unicorn.jpg');
 new Mall('usb','image/usb.gif');
 new Mall('water-can','image/water-can.jpg');
 new Mall('wine-glass','image/wine-glass.jpg');
+
+}
 
 
 function RandomNumber(imageBox) {
@@ -141,12 +170,22 @@ function pmit(event){
 tabel.addEventListener('click', NumberClicks)
 
 function NumberClicks(event){
+
+  
+  
   if( totalClick<maxnumber){
         //var clickedElement = event.target;
+=======
+  
+  
+  if( totalClick<maxNumberofclicks){
+       
+
         var clickedElementId = event.target.id;
 
       if (clickedElementId === 'leftimg' || clickedElementId === 'middelimg'  || clickedElementId === 'rightimg') {
-         totalClick++;
+      
+      totalClick++;
   
      if (clickedElementId === 'leftimg') {
         currentLeftImg.numberOfClicks += 1;
@@ -159,26 +198,139 @@ function NumberClicks(event){
         currentRightImg.numberOfClicks += 1;
       }
 
-        displayRandomIamge();
+      
+    localStorage.setItem('saveproducts',JSON.stringify(product));
+    console.log('The localStorage before: ', localStorage);
+    console.log('After retriving ',JSON.parse(localStorage.getItem('products')));
+
+      displayRandomIamge();
+      //update();
+      //localStorage.setItem('products',JSON.stringify(product));
       }
 
+     
     }
-    else{
+    else if(totalClick===maxNumberofclicks){
 
-        var resultsList = document.getElementById('resultbox');
-
-        for (var i = 0; i < product.length; i++) {
-            var listItem = document.createElement('li');
-            listItem.textContent = product[i].name + ' has ' + product[i].numberOfClicks + ' clicks , and ' + product[i].timesShown + ' times shown';
-            resultsList.appendChild(listItem);
-          }
-
-          final.removeEventListener('click',NumberClicks)
-
-
+        
+      resultChart();
+     
+     //final.removeEventListener('click',NumberClicks);
+     maxnumber();
+          
     }
+}
+
+
+
+
+
+var ctx = document.getElementById('resultsChart').getContext('2d');
+
+function resultChart (){
+
+  var color=[];
+  var color2=[];
+  var numberOfCliksArray=[];
+  var border=[];
+  var numberTimeshown =[];
+  for(var i=0; i<product.length; i++){
+  numberOfCliksArray.push(product[i].numberOfClicks);
+    numberTimeshown.push(product[i].timesShown);
+    border.push('rgba(12, 12, 12,1)')
+    color.push('rgb(180, 76, 76)');
+    color2.push('rgb(85, 26, 26)');
+    if (productName===undefined){
+      productName.push(product[i].name);
+      
+    } 
+         
+  }
+console.log(productName)
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: productName,
+        datasets: [{
+            label:'# of clicks',
+            data:numberOfCliksArray, 
+            backgroundColor: color,                
+            borderColor: border,
+            borderWidth: 1 ,
+            
+        },{
+        label:'# of time showen',
+        data:numberTimeshown, 
+        backgroundColor: color2,                
+        borderColor: border,
+        borderWidth: 1 ,},
+      ]
+    },
+
+    options: {
+     responsive: false,
+      maintainAspectRatio: false,
+
+
+
+      legend: {
+        labels: {
+            fontColor: 'black'
+        }
+    },
+
+        scales: { 
+            yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  precision:1, 
+                  stepSize:1 ,
+
+                  fontColor: 'black'
+                    
+                }
+            }],
+
+            xAxes:[{
+            ticks: {
+              fontColor: 'black'
+            }
+
+            }
+          ]  
+        }
+    }
+});
+}
+
+
+
+function maxnumber(){
+
+   
+  maxNumberofclicks+=25;
+  // var totalClicknew=totalClick;
+   localStorage.setItem('totalClicks',JSON.stringify(totalClick))
+   localStorage.setItem('maxnumberofclicks',JSON.stringify(maxNumberofclicks))
+  // localStorage.setItem('productname',JSON.stringify(productName))
+
+ //  resultChart.remove()
+ delete resultChart();
 
 }
+
+
+
+
+
+  
+  
+
+
+
+
+
+
 
 
 

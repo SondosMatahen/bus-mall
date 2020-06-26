@@ -1,10 +1,13 @@
 html{
-    background-image:  url('https://previews.123rf.com/images/svglass/svglass1909/svglass190900015/133576437-saint-petersburg-russia-aug-13-2019-free-bus-from-novocherkasskaya-metro-station-to-the-okhta-mall-s.jpg')  ;
+   background-image:  url('https://previews.123rf.com/images/svglass/svglass1909/svglass190900015/133576437-saint-petersburg-russia-aug-13-2019-free-bus-from-novocherkasskaya-metro-station-to-the-okhta-mall-s.jpg')  ;
     background-repeat: no-repeat; 
     background-size: cover;
     background-position: center center;
-  
-}
+    
+    background-color: rgba(160, 151, 151, 0.5);
+    background-blend-mode: screen;
+
+ }
 
 table img{
     
@@ -30,20 +33,12 @@ table{
     border:solid black;
     width: 70%;
     display: inline-block;
-    float: right;
+    margin-left: 200px;
     height: 265px;
     margin-top: 16px;
+    margin-bottom: 50px;
 }
-#resultbox{
-    backdrop-filter: blur(10px);
-    color:rgb(18, 1, 19);
-    position: relative;
-    display: inline-block;
-    border:solid rgb(12, 12, 12);
-    width: 25%;
-    height:500px;
-    font-weight: 600;
-}
+
 .two{
     backdrop-filter: blur(10px);
     
@@ -57,8 +52,13 @@ table{
     float: right;
     height: 150px;
     margin-top: 16px;
-    color: rgb(136, 9, 9);
+    color: rgb(85, 26, 26);
     text-indent: 50px ;
     font-weight: 700;
 
 }
+
+canvas{
+margin-left: 20%;
+}
+
