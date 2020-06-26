@@ -3,12 +3,9 @@
 var product =[];
 var totalClick=0;
 
-
-
 var currentLeftImg;
 var currentMiddleImg;
 var currentRightImg;
-var maxNumberofclicks=25;
 
 
 var final =document.getElementById('tabel')
@@ -16,6 +13,8 @@ var final =document.getElementById('tabel')
 var leftImage = document.getElementById('leftimg');
 var middleImage = document.getElementById('middelimg');
 var rightImage = document.getElementById('rightimg');
+
+
 for(var i=0; i<product.length; i++){
 productName.push(product[i].name)}
 //var storage = document.getElementById('storage');
@@ -26,11 +25,9 @@ var previousLeftImageIndex;
 var previousMiddelImageIndex;
 var previousrightImageIndex;
 
+var maxNumberofclicks=25;
+
 var productName=[];
-//var numberClicksArray=[];
-//var timeShowenArray=[];
-
-
 
 function Mall (name , url){
     this.name=name;
@@ -41,6 +38,8 @@ function Mall (name , url){
     productName.push(this.name);
 
 }
+
+
 
 
 //console.log(product)
@@ -58,7 +57,6 @@ for(var i=0 ;i<product.length;i++){
 console.log(product)
 
 }
-else{
 
 new Mall ('bag','image/bag.jpg');
 new Mall('banana','image/banana.jpg');
@@ -80,8 +78,6 @@ new Mall('unicorn','image/unicorn.jpg');
 new Mall('usb','image/usb.gif');
 new Mall('water-can','image/water-can.jpg');
 new Mall('wine-glass','image/wine-glass.jpg');
-
-}
 
 
 function RandomNumber(imageBox) {
@@ -155,21 +151,35 @@ displayRandomIamge();
 
 
 
+var form = document.getElementById('form')
+var input = document.getElementById('in')
+
+form.addEventListener('submit', numberofitration)
+function numberofitration(event){
+  event.preventDefault();
+
+  maxNumberofclicks=number(event.target.in.value);
+  console.log(maxNumberofclicks)
+
+
+}
+
+
+
+
+
 
 
 
 tabel.addEventListener('click', NumberClicks)
 
 function NumberClicks(event){
-  
-  
   if( totalClick<maxNumberofclicks){
        
         var clickedElementId = event.target.id;
 
       if (clickedElementId === 'leftimg' || clickedElementId === 'middelimg'  || clickedElementId === 'rightimg') {
-      
-      totalClick++;
+         totalClick++;
   
      if (clickedElementId === 'leftimg') {
         currentLeftImg.numberOfClicks += 1;
@@ -192,9 +202,8 @@ function NumberClicks(event){
       //localStorage.setItem('products',JSON.stringify(product));
       }
 
-     
     }
-    else if(totalClick===maxNumberofclicks){
+    else{
 
         
       resultChart();
@@ -209,7 +218,6 @@ function NumberClicks(event){
 
 
 
-var ctx = document.getElementById('resultsChart').getContext('2d');
 
 function resultChart (){
 
@@ -219,7 +227,7 @@ function resultChart (){
   var border=[];
   var numberTimeshown =[];
   for(var i=0; i<product.length; i++){
-  numberOfCliksArray.push(product[i].numberOfClicks);
+    numberOfCliksArray.push(product[i].numberOfClicks);
     numberTimeshown.push(product[i].timesShown);
     border.push('rgba(12, 12, 12,1)')
     color.push('rgb(180, 76, 76)');
@@ -229,8 +237,13 @@ function resultChart (){
       
     //} 
          
-  }
-console.log(productName)
+}
+
+
+
+
+var ctx = document.getElementById('resultsChart').getContext('2d');
+
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -259,6 +272,7 @@ var myChart = new Chart(ctx, {
 
       legend: {
         labels: {
+            // This more specific font property overrides the global property
             fontColor: 'black'
         }
     },
@@ -286,6 +300,8 @@ var myChart = new Chart(ctx, {
     }
 });
 }
+
+
 
 
 
