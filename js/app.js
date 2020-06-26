@@ -24,9 +24,12 @@ var previousLeftImageIndex;
 var previousMiddelImageIndex;
 var previousrightImageIndex;
 
+var maxnumber=25;
+
 var productName=[];
 //var numberClicksArray=[];
 //var timeShowenArray=[];
+
 
 
 
@@ -148,6 +151,18 @@ displayRandomIamge();
 
 
 
+var form = document.getElementById('form')
+var input = document.getElementById('in')
+
+form.addEventListener('submit', pmit)
+function pmit(event){
+  event.preventDefault();
+
+  maxnumber=event.target.in.value
+  console.log(maxnumber)
+
+
+}
 
 
 
@@ -155,10 +170,17 @@ displayRandomIamge();
 tabel.addEventListener('click', NumberClicks)
 
 function NumberClicks(event){
+
+  
+  
+  if( totalClick<maxnumber){
+        //var clickedElement = event.target;
+=======
   
   
   if( totalClick<maxNumberofclicks){
        
+
         var clickedElementId = event.target.id;
 
       if (clickedElementId === 'leftimg' || clickedElementId === 'middelimg'  || clickedElementId === 'rightimg') {
