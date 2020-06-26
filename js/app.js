@@ -1,34 +1,42 @@
 'use strict'
 
+
+// Array for all products
 var product =[];
+
+// defualt value for all clicks
 var totalClick=0;
 
+
+// declare variables for current images
 var currentLeftImg;
 var currentMiddleImg;
 var currentRightImg;
 
 
-var final =document.getElementById('tabel')
 
+// get elements from html
+var final =document.getElementById('tabel')
 var leftImage = document.getElementById('leftimg');
 var middleImage = document.getElementById('middelimg');
 var rightImage = document.getElementById('rightimg');
 
 
-for(var i=0; i<product.length; i++){
-productName.push(product[i].name)}
-//var storage = document.getElementById('storage');
-//var jsoToJSONString = document.getElementById('jsoToJSONString');
+// array for the names of products 
+var productName=[];
 
 
+// declare variables for previous images
 var previousLeftImageIndex;
 var previousMiddelImageIndex;
 var previousrightImageIndex;
 
+
+//Default number for max number of all cliks
 var maxNumberofclicks=25;
 
-var productName=[];
 
+// constructor
 function Mall (name , url){
     this.name=name;
     this.url=url;
@@ -42,21 +50,36 @@ function Mall (name , url){
 
 
 
-//console.log(product)
+// check if there is max number of cliks saved in local storage
 if (localStorage.getItem('maxnumberofclicks')){
+
+// Get the value of max number of clicks from storage
   maxNumberofclicks=JSON.parse(localStorage.getItem('maxnumberofclicks'));
 }
+
+
+
+// check if there is product array saved in local storage
 if (localStorage.getItem('saveproducts')){
+ 
+// Get the product from storage  
 product=JSON.parse(localStorage.getItem('saveproducts'));
+
+// Get the total clicks from storage 
 totalClick=JSON.parse(localStorage.getItem('totalClicks'));
-//productName=JSON.parse(localStorage.getItem('productname'));
+
+// push name values from product array to name array
 for(var i=0 ;i<product.length;i++){
   productName.push(product[i].name)
-}
-
+   }
 console.log(product)
 
 }
+
+
+
+
+// Declare objects
 
 new Mall ('bag','image/bag.jpg');
 new Mall('banana','image/banana.jpg');
@@ -80,7 +103,14 @@ new Mall('water-can','image/water-can.jpg');
 new Mall('wine-glass','image/wine-glass.jpg');
 
 
+
+
+//Function to get Random Number
 function RandomNumber(imageBox) {
+
+// get  the random number
+//check if the random number is from previous numbers 
+//check if the random number is same to current middle or left numbers
 
     var random;
     var allowed;
@@ -106,9 +136,11 @@ function RandomNumber(imageBox) {
 
 
 
-
+//function to display images
 function displayRandomIamge(){
 
+//Display diffrent images
+//ncrease the time shown for each image will appear
     var imageBox =[];
 
     if(totalClick > 0){
@@ -146,11 +178,12 @@ currentRightImg.timesShown += 1;
 }
 
 
+// call function of display images 
 displayRandomIamge();
 
 
 
-
+//Make an event listener to input number of ittrations
 var form = document.getElementById('form')
 var input = document.getElementById('in')
 
@@ -170,10 +203,17 @@ function numberofitration(event){
 
 
 
-
+//Make an event listener for clicks on images
 tabel.addEventListener('click', NumberClicks)
 
+
 function NumberClicks(event){
+
+//Check which image was clicked
+//increase number of clicks for clicked image
+// increase total number of cliked
+//Save product array in local storage
+//save total clicks in loal storage
   if( totalClick<maxNumberofclicks){
        
         var clickedElementId = event.target.id;
@@ -203,6 +243,9 @@ function NumberClicks(event){
       }
 
     }
+
+//show the chart when total clicked number is equal to max number of clicks 
+//call maxnumber function    
     else{
 
         
@@ -218,7 +261,7 @@ function NumberClicks(event){
 
 
 
-
+// Function for draw chart
 function resultChart (){
 
   var color=[];
@@ -304,18 +347,12 @@ var myChart = new Chart(ctx, {
 
 
 
-
+// Function to update max number of clicks by 25 each time
 function maxnumber(){
 
-   
-  maxNumberofclicks+=25;
-  // var totalClicknew=totalClick;
-  
-   localStorage.setItem('maxnumberofclicks',JSON.stringify(maxNumberofclicks))
-  // localStorage.setItem('productname',JSON.stringify(productName))
-
- //  resultChart.remove()
-// delete resultChart();
+//upate the value of  max number of clicks & save it after updating in local storage   
+maxNumberofclicks+=25;
+localStorage.setItem('maxnumberofclicks',JSON.stringify(maxNumberofclicks))
 
 }
 

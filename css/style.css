@@ -12,9 +12,10 @@ html{
 table img{
     
     float: right;
-    padding-right:  60px; ;
-    width: 50%;
-    height: 50%;
+    padding-right:  30px;
+    padding-left:  30px;
+    width: 280px;
+    height: 250px;
 }
 header{
     font-size:200%;
