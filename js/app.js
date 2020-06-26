@@ -14,6 +14,13 @@ var leftImage = document.getElementById('leftimg');
 var middleImage = document.getElementById('middelimg');
 var rightImage = document.getElementById('rightimg');
 
+
+for(var i=0; i<product.length; i++){
+productName.push(product[i].name)}
+//var storage = document.getElementById('storage');
+//var jsoToJSONString = document.getElementById('jsoToJSONString');
+
+
 var previousLeftImageIndex;
 var previousMiddelImageIndex;
 var previousrightImageIndex;
@@ -30,6 +37,24 @@ function Mall (name , url){
     product.push(this);
     productName.push(this.name);
 
+}
+
+
+
+
+//console.log(product)
+if (localStorage.getItem('maxnumberofclicks')){
+  maxNumberofclicks=JSON.parse(localStorage.getItem('maxnumberofclicks'));
+}
+if (localStorage.getItem('saveproducts')){
+product=JSON.parse(localStorage.getItem('saveproducts'));
+totalClick=JSON.parse(localStorage.getItem('totalClicks'));
+//productName=JSON.parse(localStorage.getItem('productname'));
+for(var i=0 ;i<product.length;i++){
+  productName.push(product[i].name)
+}
+
+console.log(product)
 
 }
 
@@ -133,7 +158,7 @@ form.addEventListener('submit', numberofitration)
 function numberofitration(event){
   event.preventDefault();
 
-  maxNumberofclicks=event.target.in.value
+  maxNumberofclicks=number(event.target.in.value);
   console.log(maxNumberofclicks)
 
 
@@ -167,16 +192,24 @@ function NumberClicks(event){
         currentRightImg.numberOfClicks += 1;
       }
 
-        displayRandomIamge();
+      
+    localStorage.setItem('saveproducts',JSON.stringify(product));
+    console.log('The localStorage before: ', localStorage);
+    console.log('After retriving ',JSON.parse(localStorage.getItem('products')));
+    localStorage.setItem('totalClicks',JSON.stringify(totalClick))
+      displayRandomIamge();
+      //update();
+      //localStorage.setItem('products',JSON.stringify(product));
       }
 
     }
     else{
 
-
-          resultChart();
-
-          final.removeEventListener('click',NumberClicks);
+        
+      resultChart();
+     
+     //final.removeEventListener('click',NumberClicks);
+      maxnumber();
           
     }
 }
@@ -197,9 +230,16 @@ function resultChart (){
     numberOfCliksArray.push(product[i].numberOfClicks);
     numberTimeshown.push(product[i].timesShown);
     border.push('rgba(12, 12, 12,1)')
-      color.push('rgb(180, 76, 76)');
-      color2.push('rgb(85, 26, 26)')           
-  }
+    color.push('rgb(180, 76, 76)');
+    color2.push('rgb(85, 26, 26)');
+   // if (productName===undefined){
+    //  productName.push(product[i].name);
+      
+    //} 
+         
+}
+
+
 
 
 var ctx = document.getElementById('resultsChart').getContext('2d');
@@ -260,6 +300,29 @@ var myChart = new Chart(ctx, {
     }
 });
 }
+
+
+
+
+
+function maxnumber(){
+
+   
+  maxNumberofclicks+=25;
+  // var totalClicknew=totalClick;
+  
+   localStorage.setItem('maxnumberofclicks',JSON.stringify(maxNumberofclicks))
+  // localStorage.setItem('productname',JSON.stringify(productName))
+
+ //  resultChart.remove()
+// delete resultChart();
+
+}
+
+
+
+
+
   
   
 
