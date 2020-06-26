@@ -121,18 +121,6 @@ currentRightImg.timesShown += 1;
 displayRandomIamge();
 
 
-// //var num =document.getElementById('inpit');
-// var form=document.getElementById('form')
-// form.addEventListener('submit' , forinput);
-
-// function forinput (event){
-//   //event.preventDetfault();
-//   var maxnumberr= parseInt(event.target.inpit.value);
-//   console.log(maxnumberr)
-//   return 
-
-
-// }
 
 var form = document.getElementById('form')
 var input = document.getElementById('in')
@@ -143,7 +131,7 @@ function pmit(event){
 
   maxnumber=event.target.in.value
   console.log(maxnumber)
-return maxnumber
+
 
 }
 
