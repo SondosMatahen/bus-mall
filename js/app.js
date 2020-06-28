@@ -251,7 +251,7 @@ function NumberClicks(event){
         
       resultChart();
      
-     //final.removeEventListener('click',NumberClicks);
+     final.removeEventListener('click',NumberClicks);
       maxnumber();
           
     }
