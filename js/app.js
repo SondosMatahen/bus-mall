@@ -72,11 +72,11 @@ totalClick=JSON.parse(localStorage.getItem('totalClicks'));
 for(var i=0 ;i<product.length;i++){
   productName.push(product[i].name)
    }
-console.log(product)
+//console.log(product)
 
 }
 
-
+else{
 
 
 // Declare objects
@@ -102,7 +102,7 @@ new Mall('usb','image/usb.gif');
 new Mall('water-can','image/water-can.jpg');
 new Mall('wine-glass','image/wine-glass.jpg');
 
-
+}
 
 
 //Function to get Random Number
@@ -118,14 +118,18 @@ function RandomNumber(imageBox) {
 
     random=Math.floor(Math.random()*product.length);
     allowed= true;
-
-    for(var i=0 ; i< imageBox.length ;i++){
+console.log(random)
+   // for(var i=0 ; i< imageBox.length ;i++){
 
         
-        if( imageBox[i]===random){
+        // if( imageBox[i]===random){
+        //    allowed =false; 
+        
+        if( imageBox.includes(random)){
+          console.log("tt")
            allowed =false; 
 
-        }
+      //  }
         
     }} while(!allowed);
 
@@ -145,6 +149,7 @@ function displayRandomIamge(){
 
     if(totalClick > 0){
         imageBox = [previousLeftImageIndex,previousMiddelImageIndex , previousrightImageIndex];
+        console.log(imageBox)
       }
    
 
@@ -234,8 +239,8 @@ function NumberClicks(event){
 
       
     localStorage.setItem('saveproducts',JSON.stringify(product));
-    console.log('The localStorage before: ', localStorage);
-    console.log('After retriving ',JSON.parse(localStorage.getItem('products')));
+    //console.log('The localStorage before: ', localStorage);
+   // console.log('After retriving ',JSON.parse(localStorage.getItem('products')));
     localStorage.setItem('totalClicks',JSON.stringify(totalClick))
       displayRandomIamge();
       //update();
